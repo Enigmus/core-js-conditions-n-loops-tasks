@@ -70,6 +70,11 @@ function canQueenCaptureKing(/* queen, king */) {
 }
 
 /**
+ *
+    queen.x === king.x
+    queen.y === king.y
+    Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y)
+
  * Determines whether a triangle is isosceles based on its side lengths.
  * In this task, the use of methods of the String and Array classes is not allowed.
  *
@@ -427,10 +432,22 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
-}
+function sortByAsc(arr) {
+  const newArr = [...arr];
 
+  /* Пузырьком => не проходит тесты :( */
+  for (let i = 0; i < newArr.length; i += 1) {
+    for (let j = i; j < newArr.length - 1; j += 1) {
+      if (newArr[j] > newArr[j + 1]) {
+        const n = newArr[j];
+        newArr[j] = newArr[j + 1];
+        newArr[j + 1] = n;
+      }
+    }
+  }
+  return newArr;
+}
+console.log(sortByAsc([-2, 9, 5, -3]));
 /**
  * Shuffles characters in a string so that the characters with an odd index are moved to the end of the string at each iteration.
  * Take into account that the string can be very long and the number of iterations is large. Consider how you can optimize your solution.
