@@ -431,23 +431,64 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5]       => [2, 5, 9]
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
+ *
  */
-function sortByAsc(arr) {
-  const newArr = [...arr];
-
-  /* Пузырьком => не проходит тесты :( */
+/* Пузырьковая сортировка
   for (let i = 0; i < newArr.length; i += 1) {
-    for (let j = i; j < newArr.length - 1; j += 1) {
-      if (newArr[j] > newArr[j + 1]) {
+    for (let j = newArr.length - 1; j > i; j -= 1) {
+      if (newArr[j] < newArr[j - 1]) {
         const n = newArr[j];
-        newArr[j] = newArr[j + 1];
-        newArr[j + 1] = n;
+        newArr[j] = newArr[j - 1];
+        newArr[j - 1] = n;
       }
     }
+  } */
+
+/* Сортировка выбором */
+
+function sortByAsc(arr) {
+  const newArr = arr;
+
+  for (let i = 0; i < newArr.length - 1; i += 1) {
+    let min = i;
+    for (let j = i + 1; j < newArr.length; j += 1) {
+      if (newArr[j] < newArr[min]) {
+        min = j;
+      }
+    }
+    const temp = newArr[i];
+    newArr[i] = newArr[min];
+    newArr[min] = temp;
   }
+
   return newArr;
 }
-console.log(sortByAsc([-2, 9, 5, -3]));
+/* function sortByAsc(ar) {
+  if (ar.length <= 1) {
+    return ar;
+  }
+
+  const pivot = ar[ar.length - 1];
+  const leftAr = [];
+  const rightAr = [];
+
+  for (let i = 0; i < ar.length - 1; i += 1) {
+    if (ar[i] < pivot) {
+      leftAr.push(ar[i]);
+    } else {
+      rightAr.push(ar[i]);
+    }
+  }
+
+  return [...sortByAsc(leftAr), pivot, ...sortByAsc(rightAr)];
+} */
+
+/* console.log(
+  sortByAsc([
+    -2, -5, 10, -5, -5, 25, 1264, -1654654, 0, 12, 12, 12, 12, 1569, -55, 9, 5,
+    -3,
+  ])
+); */
 /**
  * Shuffles characters in a string so that the characters with an odd index are moved to the end of the string at each iteration.
  * Take into account that the string can be very long and the number of iterations is large. Consider how you can optimize your solution.
