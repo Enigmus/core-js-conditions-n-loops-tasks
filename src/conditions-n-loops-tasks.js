@@ -462,7 +462,8 @@ function sortByAsc(arr) {
 
   return newArr;
 }
-/* function sortByAsc(ar) {
+/* Быстрая сортировка
+ function sortByAsc(ar) {
   if (ar.length <= 1) {
     return ar;
   }
