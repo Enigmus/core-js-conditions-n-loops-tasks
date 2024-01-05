@@ -443,7 +443,7 @@ function rotateMatrix(matrix) {
     }
   } */
 
-/* Сортировка выбором */
+/* Сортировка выбором
 
 function sortByAsc(arr) {
   const newArr = arr;
@@ -462,26 +462,65 @@ function sortByAsc(arr) {
 
   return newArr;
 }
-/* Быстрая сортировка
- function sortByAsc(ar) {
+*/
+/* Быстрая сортировка Не проходит ЕБУЧИЙ линтер
+
+function sortByAsc(ar) {
   if (ar.length <= 1) {
     return ar;
   }
-
-  const pivot = ar[ar.length - 1];
+  const middle = ar[ar.length - 1];
   const leftAr = [];
   const rightAr = [];
 
   for (let i = 0; i < ar.length - 1; i += 1) {
-    if (ar[i] < pivot) {
+    if (ar[i] <= middle) {
       leftAr.push(ar[i]);
     } else {
       rightAr.push(ar[i]);
     }
   }
 
-  return [...sortByAsc(leftAr), pivot, ...sortByAsc(rightAr)];
-} */
+  return [...sortByAsc(leftAr), middle, ...sortByAsc(rightAr)];
+}
+*/
+function quickSort(left, right, a) {
+  const array = a;
+  const p = array[Math.floor((right + left) / 2)];
+  let newLeft = left;
+  let newRight = right;
+  while (newLeft <= newRight) {
+    while (array[newLeft] < p) {
+      newLeft += 1;
+    }
+    while (array[newRight] > p) {
+      newRight -= 1;
+    }
+    if (newLeft <= newRight) {
+      const m = array[newRight];
+      array[newRight] = array[newLeft];
+      array[newLeft] = m;
+      newLeft += 1;
+      newRight -= 1;
+    }
+  }
+  if (left < newLeft - 1) {
+    quickSort(left, newLeft - 1, array);
+  }
+  if (newLeft < right) {
+    quickSort(newLeft, right, array);
+  }
+
+  return array;
+}
+
+function sortByAsc(arr) {
+  if (arr.length < 2) {
+    return arr;
+  }
+
+  return quickSort(0, arr.length - 1, arr);
+}
 
 /* console.log(
   sortByAsc([
@@ -489,6 +528,7 @@ function sortByAsc(arr) {
     -3,
   ])
 ); */
+
 /**
  * Shuffles characters in a string so that the characters with an odd index are moved to the end of the string at each iteration.
  * Take into account that the string can be very long and the number of iterations is large. Consider how you can optimize your solution.
