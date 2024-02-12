@@ -583,9 +583,42 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+
+/* Возможно костыли, но в голову почему то пришло это решение */
+
+/* Функция, для получения масства цифр из передоваемого числа */
+const getNumToArr = (n) => Array.from(String(n)).map((el) => Number(el));
+
+const arrToNum = (a) =>
+  a.map((elem) => +elem.reduce((acc, el) => acc + el, ''));
+
+/* Фунцкция получения всех возможных комбинация из цифр переданного числа */
+const getCombineFromNumArr = (arr, mem = [], res = []) => {
+  let part;
+  for (let i = 0; i < arr.length; i += 1) {
+    part = arr.splice(i, 1);
+    if (arr.length === 0) {
+      res.push(mem.concat(part));
+    }
+    getCombineFromNumArr(arr.slice(), mem.concat(part), res);
+    arr.splice(i, 0, part[0]);
+  }
+  return res;
+};
+
+function getNearestBigger(num) {
+  const number = getNumToArr(num);
+  const arrCombine = getCombineFromNumArr(number);
+  const arrCombineN = arrToNum(arrCombine);
+  const sortArrCombine = [...new Set(sortByAsc(arrCombineN))];
+
+  const pos = sortArrCombine.indexOf(num) + 1;
+  if (pos > 0) return sortArrCombine[pos];
+
+  return num;
 }
+
+/* console.log(getNearestBigger(90822)); */
 
 module.exports = {
   isPositive,
