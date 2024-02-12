@@ -562,9 +562,24 @@ function sortByAsc(arr) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  let out = str;
+  for (let i = 0; i < iterations; i += 1) {
+    let odd = '';
+    let even = '';
+    for (let j = 0; j < str.length; j += 2) {
+      odd += out[j];
+    }
+    for (let j = 1; j < str.length; j += 2) {
+      even += out[j];
+    }
+    out = odd + even;
+    if (iterations < 0) return shuffleChar(str, iterations - 1);
+  }
+  return out;
 }
+
+/* console.log(shuffleChar('qwerty', 3)); */
 
 /**
  * Returns the nearest largest integer consisting of the digits of the given positive integer.
@@ -586,13 +601,13 @@ function shuffleChar(/* str, iterations */) {
 
 /* Возможно костыли, но в голову почему то пришло это решение */
 
-/* Функция, для получения масства цифр из передоваемого числа */
+/* /* Функция, для получения масства цифр из передоваемого числа *
 const getNumToArr = (n) => Array.from(String(n)).map((el) => Number(el));
 
 const arrToNum = (a) =>
   a.map((elem) => +elem.reduce((acc, el) => acc + el, ''));
 
-/* Фунцкция получения всех возможных комбинация из цифр переданного числа */
+/* Фунцкция получения всех возможных комбинация из цифр переданного числа *
 const getCombineFromNumArr = (arr, mem = [], res = []) => {
   let part;
   for (let i = 0; i < arr.length; i += 1) {
@@ -605,20 +620,21 @@ const getCombineFromNumArr = (arr, mem = [], res = []) => {
   }
   return res;
 };
-
-function getNearestBigger(num) {
-  const number = getNumToArr(num);
+ */
+function getNearestBigger(/* num */) {
+  /* const number = getNumToArr(num);
   const arrCombine = getCombineFromNumArr(number);
   const arrCombineN = arrToNum(arrCombine);
   const sortArrCombine = [...new Set(sortByAsc(arrCombineN))];
 
   const pos = sortArrCombine.indexOf(num) + 1;
-  if (pos > 0) return sortArrCombine[pos];
+  if (pos < sortArrCombine.length) return sortArrCombine[pos];
 
-  return num;
+  return num; */
+  throw new Error('Not implemented');
 }
 
-/* console.log(getNearestBigger(90822)); */
+/* console.log(getNearestBigger(54)); */
 
 module.exports = {
   isPositive,
