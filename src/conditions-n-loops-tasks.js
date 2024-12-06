@@ -620,7 +620,7 @@ const getCombineFromNumArr = (arr, mem = [], res = []) => {
   }
   return res;
 };
- */
+*/
 function getNearestBigger(/* num */) {
   /* const number = getNumToArr(num);
   const arrCombine = getCombineFromNumArr(number);
